@@ -1,8 +1,10 @@
 ﻿using AppATM.Interfaces;
 using System;
+using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Net.Mail;
+using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
 
@@ -30,12 +32,13 @@ namespace AppATM
         private string NameActualUser;
         private int txtamount;
         int totalAmount;
-        readonly Timer timer;
+        private Timer timer;
         User user;
         int bancknote100;
         int bancknote200;
         int bancknote500;
         private int newBalance;
+        private SqlConnection connection;
         #endregion
         public Form1()
         {
@@ -56,6 +59,7 @@ namespace AppATM
             timer = new Timer();
             timer.Interval = 5000; // 5 seconds
             timer.Tick += BtnCancel_Click;
+            connection = new SqlConnection(database);
         }
 
         #region Method´s IATMActions
@@ -179,7 +183,6 @@ namespace AppATM
             timer.Start();
         }
         #endregion
-
 
         #region Method´s
         private bool HasAnyFunds()
@@ -636,6 +639,23 @@ namespace AppATM
             System.Diagnostics.Process.Start("https://github.com/Sarahi-I22050355/AppATM");
         }
 
+        #endregion
+
+        #region Destructor
+        ~Form1()
+        {
+            // Liberar recursos
+            timer.Stop();
+            timer.Dispose();
+
+            // Cerrar y liberar la conexión a la base de datos
+            // (si se abrió anteriormente)
+            if (connection != null && connection.State == ConnectionState.Open)
+            {
+                connection.Close();
+                connection.Dispose();
+            }
+        }
         #endregion
     }
 }
