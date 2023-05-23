@@ -174,7 +174,7 @@ namespace AppATM
             newBalance = BalanceActualUser - WAmount;
             UpdateBalanceInDatabase(newBalance);
             UpdateUserBalance();
-            CreateTransactionFile(DateTime.Now, newBalance);
+            CreateTransactionFile(DateTime.Now, newBalance, WAmount);
 
             Console.Beep();
             WithdrawalPanel.Visible = false;
@@ -329,7 +329,7 @@ namespace AppATM
         {
             BalanceActualUser = GetBalanceFromDatabase();
         }
-        private void CreateTransactionFile(DateTime dateTime, int currentBalance)
+        private void CreateTransactionFile(DateTime dateTime, int currentBalance, int withdrawalAmount)
         {
             string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             string fileName = "Transaction" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".txt";
@@ -337,15 +337,29 @@ namespace AppATM
 
             using (StreamWriter writer = new StreamWriter(filePath))
             {
-                writer.WriteLine("User: " + NameActualUser);
+                writer.WriteLine("User: " + NameActualUser.ToUpper());
                 writer.WriteLine("Date: " + dateTime.ToString("yyyy-MM-dd"));
                 writer.WriteLine("Time: " + dateTime.ToString("hh:mm:ss tt"));
                 writer.WriteLine("Withdrawal transaction");
-                writer.WriteLine("Withdrawal Amount: " + String.Format("{0:C}", txtBoxWithdrawalAmount.Text) + " MXN");
+                writer.WriteLine("Withdrawal Amount: " + String.Format("{0:C}", withdrawalAmount) + " MXN");
+                writer.WriteLine("Dispensed Bills:");
+
+                int[] denominations = new int[] { 500, 200, 100 };
+                foreach (int denomination in denominations)
+                {
+                    int dispensedQuantity = withdrawalAmount / denomination;
+                    if (dispensedQuantity > 0)
+                    {
+                        writer.WriteLine(dispensedQuantity + " x " + String.Format("{0:C}", denomination) + " MXN");
+                        withdrawalAmount %= denomination;
+                    }
+                }
+
                 writer.WriteLine("Current balance: " + String.Format("{0:C2}", currentBalance) + " MXN");
                 writer.WriteLine("Thank you for your preference!");
             }
         }
+
         public static void SendEmail(StringBuilder Mensaje, DateTime FechaEnvio, string De, string Para, string Asunto, out string Error)
         {
             Error = "";
