@@ -633,7 +633,7 @@ namespace AppATM
         }
         private void AuthorLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("");
+            System.Diagnostics.Process.Start("https://github.com/Sarahi-I22050355/AppATM");
         }
 
         #endregion
