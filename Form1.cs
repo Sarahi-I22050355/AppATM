@@ -402,18 +402,25 @@ namespace AppATM
                         MessageBox.Show("Error connecting to the database.");
                         return;
                     }
-                    int id = Convert.ToInt32(textBoxID.Text);
+
+                    if (!int.TryParse(textBoxID.Text, out int id))
+                    {
+                        MessageBox.Show("Invalid ID. Please enter a numeric value.");
+                        textBoxID.Clear();
+                        textBoxNIP.Clear();
+                        textBoxN.Clear();
+                        return;
+                    }
+
                     user.ID = id;
                     string name = textBoxN.Text;
                     user.Name = name;
-
 
                     string query = "SELECT * FROM [user] WHERE id = @Id AND name = @Name";
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@Id", id);
                         command.Parameters.AddWithValue("@Name", name);
-
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
