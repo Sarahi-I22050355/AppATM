@@ -2,6 +2,7 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.IO;
 using System.Net.Mail;
 using System.Security.Cryptography;
@@ -341,32 +342,32 @@ namespace AppATM
                 writer.WriteLine("Date: " + dateTime.ToString("yyyy-MM-dd"));
                 writer.WriteLine("Time: " + dateTime.ToString("hh:mm:ss tt"));
                 writer.WriteLine("Withdrawal transaction");
-                writer.WriteLine("Withdrawal Amount: " + String.Format("{0:C}", withdrawalAmount) + " MXN");
+                writer.WriteLine("Withdrawal Amount: " + String.Format("{0:C2}",withdrawalAmount)+"MXN");
                 writer.WriteLine("Dispensed Bills:");
 
                 int[] denominations = new int[] { 500, 200, 100 };
                 foreach (int denomination in denominations)
                 {
                     int dispensedQuantity = withdrawalAmount / denomination;
+
                     if (dispensedQuantity > 0)
                     {
-                        writer.WriteLine(dispensedQuantity + " x " + String.Format("{0:C}", denomination) + " MXN");
+                        writer.WriteLine(dispensedQuantity + " x " + String.Format("{0:C2}",denomination)+"MXN");
                         withdrawalAmount %= denomination;
                     }
                 }
 
-                writer.WriteLine("Current balance: " + String.Format("{0:C2}", currentBalance) + " MXN");
+                writer.WriteLine("Current balance: " + String.Format("{0:C2}",currentBalance)+"MXN");
                 writer.WriteLine("Thank you for your preference!");
             }
         }
-
         public static void SendEmail(StringBuilder Mensaje, DateTime FechaEnvio, string De, string Para, string Asunto, out string Error)
         {
             Error = "";
             try
             {
                 Mensaje.Append(Environment.NewLine);
-                Mensaje.Append(string.Format("This email was sent on {0:dd/MM/yyyy} at {0:HH:mm:ss} Hrs: \n\n", FechaEnvio));
+                Mensaje.Append(string.Format("This email was sent on {0:dd/MM/yyyy} at {0:HH:mm:ss} Hrs. \n\n", FechaEnvio));
                 Mensaje.Append(Environment.NewLine);
                 MailMessage mail = new MailMessage();
                 mail.From = new MailAddress(De);
@@ -388,7 +389,6 @@ namespace AppATM
                 return;
             }
         }
-
         #endregion
 
         #region Home Options
