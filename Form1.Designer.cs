@@ -45,7 +45,6 @@
             this.Btn00 = new System.Windows.Forms.Button();
             this.WelcomePanel = new System.Windows.Forms.Panel();
             this.AuthorLabel = new System.Windows.Forms.LinkLabel();
-            this.LabelBalance = new System.Windows.Forms.Label();
             this.BtnVerify = new System.Windows.Forms.Button();
             this.textBoxNIP = new System.Windows.Forms.TextBox();
             this.textBoxN = new System.Windows.Forms.TextBox();
@@ -74,7 +73,7 @@
             this.DepositPanel = new System.Windows.Forms.Panel();
             this.txtBoxDepositAmount = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.DepositSuccesfulLabel = new System.Windows.Forms.Label();
+            this.DepositSuccessfullLabel = new System.Windows.Forms.Label();
             this.SelectedBillPanel = new System.Windows.Forms.Panel();
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
@@ -142,7 +141,7 @@
             // Btn1
             // 
             this.Btn1.Font = new System.Drawing.Font("Consolas", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Btn1.Location = new System.Drawing.Point(234, 311);
+            this.Btn1.Location = new System.Drawing.Point(236, 312);
             this.Btn1.Name = "Btn1";
             this.Btn1.Size = new System.Drawing.Size(50, 50);
             this.Btn1.TabIndex = 0;
@@ -268,7 +267,6 @@
             this.WelcomePanel.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.WelcomePanel.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("WelcomePanel.BackgroundImage")));
             this.WelcomePanel.Controls.Add(this.AuthorLabel);
-            this.WelcomePanel.Controls.Add(this.LabelBalance);
             this.WelcomePanel.Controls.Add(this.BtnVerify);
             this.WelcomePanel.Controls.Add(this.textBoxNIP);
             this.WelcomePanel.Controls.Add(this.textBoxN);
@@ -296,16 +294,6 @@
             this.AuthorLabel.TabStop = true;
             this.AuthorLabel.Text = "Software Engineer";
             this.AuthorLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.AuthorLabel_LinkClicked);
-            // 
-            // LabelBalance
-            // 
-            this.LabelBalance.AutoSize = true;
-            this.LabelBalance.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelBalance.ForeColor = System.Drawing.Color.White;
-            this.LabelBalance.Location = new System.Drawing.Point(764, 13);
-            this.LabelBalance.Name = "LabelBalance";
-            this.LabelBalance.Size = new System.Drawing.Size(0, 25);
-            this.LabelBalance.TabIndex = 6;
             // 
             // BtnVerify
             // 
@@ -627,22 +615,22 @@
             this.label11.Text = "How much would \r\nyou like to deposit?";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // DepositSuccesfulLabel
+            // DepositSuccessfullLabel
             // 
-            this.DepositSuccesfulLabel.AutoSize = true;
-            this.DepositSuccesfulLabel.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold);
-            this.DepositSuccesfulLabel.ForeColor = System.Drawing.Color.White;
-            this.DepositSuccesfulLabel.Location = new System.Drawing.Point(65, 250);
-            this.DepositSuccesfulLabel.Name = "DepositSuccesfulLabel";
-            this.DepositSuccesfulLabel.Size = new System.Drawing.Size(280, 22);
-            this.DepositSuccesfulLabel.TabIndex = 5;
-            this.DepositSuccesfulLabel.Text = "The deposit was successful.";
-            this.DepositSuccesfulLabel.Visible = false;
+            this.DepositSuccessfullLabel.AutoSize = true;
+            this.DepositSuccessfullLabel.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold);
+            this.DepositSuccessfullLabel.ForeColor = System.Drawing.Color.White;
+            this.DepositSuccessfullLabel.Location = new System.Drawing.Point(65, 250);
+            this.DepositSuccessfullLabel.Name = "DepositSuccessfullLabel";
+            this.DepositSuccessfullLabel.Size = new System.Drawing.Size(280, 22);
+            this.DepositSuccessfullLabel.TabIndex = 5;
+            this.DepositSuccessfullLabel.Text = "The deposit was successful.";
+            this.DepositSuccessfullLabel.Visible = false;
             // 
             // SelectedBillPanel
             // 
             this.SelectedBillPanel.BackColor = System.Drawing.Color.Blue;
-            this.SelectedBillPanel.Controls.Add(this.DepositSuccesfulLabel);
+            this.SelectedBillPanel.Controls.Add(this.DepositSuccessfullLabel);
             this.SelectedBillPanel.Controls.Add(this.label16);
             this.SelectedBillPanel.Controls.Add(this.label15);
             this.SelectedBillPanel.Controls.Add(this.label14);
@@ -1046,8 +1034,7 @@
         private System.Windows.Forms.Panel DepositPanel;
         private System.Windows.Forms.TextBox txtBoxDepositAmount;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label LabelBalance;
-        private System.Windows.Forms.Label DepositSuccesfulLabel;
+        private System.Windows.Forms.Label DepositSuccessfullLabel;
         private System.Windows.Forms.Panel SelectedBillPanel;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label15;

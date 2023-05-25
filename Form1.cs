@@ -102,7 +102,7 @@ namespace AppATM
                 UpdateUserBalance();
                 //UpdateBalanceInDatabase(newBalance);
                 Console.Beep();
-                DepositSuccesfulLabel.Visible = true;
+                DepositSuccessfullLabel.Visible = true;
                 BtnEnter.Enabled = false;
                 timer.Start();
             }
@@ -118,7 +118,6 @@ namespace AppATM
         }
         public void Withdrawal(int WAmount)
         {
-            // Verificar si el monto a retirar es válido
             if (WAmount <= 0)
             {
                 Console.Beep();
@@ -128,8 +127,6 @@ namespace AppATM
                 timer.Start();
                 return;
             }
-
-            // Verificar si el usuario tiene suficiente saldo para el retiro
             else if (WAmount > BalanceActualUser)
             {
                 Console.Beep();
@@ -139,7 +136,6 @@ namespace AppATM
                 timer.Start();
                 return;
             }
-            // Verificar si hay suficiente dinero en el cajero
             else if (!HasAnyFunds())
             {
                 Console.Beep();
@@ -158,7 +154,6 @@ namespace AppATM
                 SendEmail(MensajeBuiler, DateTime.Now, De, Para, Asunto, out Error);
                 return;
             }
-            // Verificar si el monto a retirar se puede dispensar con los billetes disponibles
             else if (!CanDispenseAmount(WAmount))
             {
                 Console.Beep();
@@ -168,10 +163,8 @@ namespace AppATM
                 timer.Start();
                 return;
             }
-            // Realizar el retiro
             DispenseAmount(WAmount);
 
-            // Actualizar el saldo del usuario en la base de datos
             newBalance = BalanceActualUser - WAmount;
             UpdateBalanceInDatabase(newBalance);
             UpdateUserBalance();
@@ -363,7 +356,6 @@ namespace AppATM
         }
         public static void SendEmail(StringBuilder Mensaje, DateTime FechaEnvio, string De, string Para, string Asunto, out string Error)
         {
-            Error = "";
             try
             {
                 Mensaje.Append(Environment.NewLine);
@@ -613,7 +605,7 @@ namespace AppATM
             nud100.Value = 0;
             nud200.Value = 0;
             nud500.Value = 0;
-            DepositSuccesfulLabel.Visible = false;
+            DepositSuccessfullLabel.Visible = false;
             Timer1_Tick(sender, e);
             Console.Beep();
         }
@@ -650,6 +642,7 @@ namespace AppATM
             {
                 return;
             }
+            
         }
         private void Timer1_Tick(object sender, EventArgs e)
         {
@@ -665,12 +658,9 @@ namespace AppATM
         #region Destructor
         ~Form1()
         {
-            // Liberar recursos
             timer.Stop();
             timer.Dispose();
 
-            // Cerrar y liberar la conexión a la base de datos
-            // (si se abrió anteriormente)
             if (connection != null && connection.State == ConnectionState.Open)
             {
                 connection.Close();
